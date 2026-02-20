@@ -1,0 +1,14 @@
+diff -Naur '--exclude=*.o' '--exclude=*.cmd' '--exclude=*.ko' '--exclude=Image' '--exclude=generated' --no-dereference a/src/Makefile b/src/Makefile
+--- a/src/Makefile	2026-02-15 20:08:24.632900764 +0300
++++ b/src/Makefile	2026-02-15 20:34:32.481132420 +0300
+@@ -427,6 +427,10 @@
+ 	DHDCFLAGS += -DBOARD_MODULAR_INIT
+ endif
+ 
++ifneq ($(KERNELRELEASE),)
++    CFLAGS_dhd_config.o += -Wno-error=attribute-warning -Wno-stringop-overflow
++endif
++
+ ifeq ($(CONFIG_MACH_PLATFORM),y)
+ 	DHDOFILES += dhd_gpio.o
+ ifeq ($(CONFIG_BCMDHD_DTS),y)
